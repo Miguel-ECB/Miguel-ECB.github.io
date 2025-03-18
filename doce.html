@@ -1,11 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>STELLARCORES - AMD</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            background-image: url('imagenes/amd.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(255, 165, 0, 1);
+            }
+        }
+        header img {
+            height: 50px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        nav a:hover {
+            color: #ff6600;
+            text-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600;
+        }
+        .content {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+            animation: glowContent 3s infinite alternate;
+        }
+        @keyframes glowContent {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 165, 0, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(255, 165, 0, 0.8);
+            }
+        }
+        h1, h2 {
+            color: #ff6600;
+            text-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600;
+            animation: textGlow 2s infinite alternate;
+        }
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600;
+            }
+            100% {
+                text-shadow: 0 0 20px #ff6600, 0 0 40px #ff6600;
+            }
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(255, 165, 0, 0.8);
+        }
+        .section h2 {
+            border-bottom: 2px solid #ff6600;
+            padding-bottom: 10px;
+        }
+        .section p {
+            line-height: 1.6;
+        }
+        .gama-baja {
+            background-color: rgba(0, 0, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 255, 0.5);
+        }
+        .gama-media {
+            background-color: rgba(255, 255, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.5);
+        }
+        .gama-alta {
+            background-color: rgba(255, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+    </style>
 </head>
 <body>
-   ESTO ES UN PRUEBA BUENA 
+    <header>
+        <img src="imagenes/logo.png" alt="STELLARCORES Logo">
+        <nav>
+            <a href="inicio.html">Inicio</a>
+            <a href="intel.html">Intel</a>
+            <a href="ibm.html">IBM</a>
+            <a href="arm.html">ARM</a>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>Procesadores AMD</h1>
+        <div class="section gama-baja">
+            <h2>Gama Baja</h2>
+            <img src="imagenes/procesador_amd_gama_baja.png" alt="AMD EPYC 3000 Series" style="float: left; margin-right: 20px; width: 150px;">
+            <p><strong>AMD EPYC 3000 Series:</strong></p>
+            <ul>
+                <li>Núcleos/Hilos: 4 núcleos / 8 hilos.</li>
+                <li>Frecuencia base: 2.8 GHz.</li>
+                <li>Caché: 8 MB L3.</li>
+                <li>TDP: 35W.</li>
+                <li>Uso recomendado: Servidores de entrada, almacenamiento en la nube básica y aplicaciones de red.</li>
+            </ul>
+        </div>
+        <div class="section gama-media">
+            <h2>Gama Media</h2>
+            <img src="imagenes/procesador_amd_gama_media.png" alt="AMD EPYC 7300 Series" style="float: left; margin-right: 20px; width: 150px;">
+            <p><strong>AMD EPYC 7300 Series:</strong></p>
+            <ul>
+                <li>Núcleos/Hilos: 16 núcleos / 32 hilos.</li>
+                <li>Frecuencia base: 3.0 GHz, Boost hasta 3.8 GHz.</li>
+                <li>Caché: 64 MB L3.</li>
+                <li>TDP: 120W.</li>
+                <li>Uso recomendado: Virtualización, cargas de trabajo de bases de datos y servidores web medianos.</li>
+            </ul>
+        </div>
+        <div class="section gama-alta">
+            <h2>Gama Alta</h2>
+            <img src="imagenes/procesador_amd_gama_alta.png" alt="AMD EPYC 9000 Series" style="float: left; margin-right: 20px; width: 150px;">
+            <p><strong>AMD EPYC 9000 Series:</strong></p>
+            <ul>
+                <li>Núcleos/Hilos: 96 núcleos / 192 hilos.</li>
+                <li>Frecuencia base: 2.7 GHz, Boost hasta 4.0 GHz.</li>
+                <li>Caché: 256 MB L3.</li>
+                <li>TDP: 320W.</li>
+                <li>Uso recomendado: Centros de datos de alto rendimiento, inteligencia artificial, renderizado y análisis de big data.</li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
