@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candado Neon</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Impact', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .neon-text {
+      color: #11ff00;
+      text-shadow: 0 0 10px #000000, 0 0 20px #0dff00, 0 0 30px #00c3ff;
+      font-size: 1.5rem;
+      margin: 10px 0;
+      animation: brillo 2s infinite alternate;
+    }
+    .neon-box {
+      border: 3px solid #00e1ff;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      margin: 10px 0;
+      animation: flotar 3s infinite ease-in-out;
+    }
+    .neon-input {
+      background-color: transparent;
+      border: 2px solid #ff00ff;
+      color: #00f2ff;
+      font-size: 1.2rem;
+      text-shadow: 0 0 5px #eeff00;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      margin: 2px;
+      animation: brilloInput 1.5s infinite alternate;
+    }
+    .neon-btn {
+      background-color: #000000;
+      border: none;
+      color: #00ccff;
+      font-size: 1rem;
+      text-shadow: 0 0 5px #8800fff9;
+      box-shadow: 0 0 10px #0015ff, 0 0 20px #ff00ff;
+      padding: 8px 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      animation: brilloBoton 2s infinite alternate;
+    }
+    .neon-image {
+      filter: drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 20px #ff00ff);
+      max-width: 100%;
+      height: auto;
+      margin: 0px 0;
+      animation: flotar 3s infinite ease-in-out;
+    }
+    .swal2-popup {
+      background-color: #1a1a1a !important;
+      border: 3px solid #00e1ff !important;
+      border-radius: 15px !important;
+      box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff !important;
+      color: #fff !important;
+      font-family: 'Impact', sans-serif !important;
+    }
+    .swal2-title {
+      color: #00e1ff !important;
+      text-shadow: 0 0 10px #00e1ff, 0 0 20px #00e1ff !important;
+      animation: brillo 2s infinite alternate;
+    }
+    .swal2-confirm {
+      background-color: #000000 !important;
+      border: none !important;
+      color: #00ccff !important;
+      font-size: 1rem !important;
+      text-shadow: 0 0 5px #8800fff9 !important;
+      box-shadow: 0 0 10px #0015ff, 0 0 20px #ff00ff !important;
+      padding: 8px 16px !important;
+      margin-top: 10px !important;
+      cursor: pointer !important;
+      animation: brilloBoton 2s infinite alternate;
+    }
+    @keyframes brillo {
+      0% {
+        text-shadow: 0 0 10px #00e1ff, 0 0 20px #00e1ff, 0 0 30px #00e1ff;
+      }
+      50% {
+        text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+      }
+      100% {
+        text-shadow: 0 0 10px #00e1ff, 0 0 20px #00e1ff, 0 0 30px #00e1ff;
+      }
+    }
+    @keyframes flotar {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    @keyframes brilloInput {
+      0% {
+        border-color: #ff00ff;
+        box-shadow: 0 0 5px #ff00ff;
+      }
+      100% {
+        border-color: #00e1ff;
+        box-shadow: 0 0 15px #00e1ff;
+      }
+    }
+    @keyframes brilloBoton {
+      0% {
+        box-shadow: 0 0 10px #0015ff, 0 0 20px #ff00ff;
+      }
+      100% {
+        box-shadow: 0 0 20px #00e1ff, 0 0 30px #ff00ff;
+      }
+    }
+    .fondo-ondas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #000, #8a2be2, #000, #8a2be2);
+      background-size: 400% 400%;
+      animation: ondas 10s infinite linear;
+      z-index: 0;
+    }
+    @keyframes ondas {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="fondo-ondas"></div>
+  <div class="container text-center">
+    <img src="imagenes/salle.png" alt="Salle" class="img-fluid neon-image" width="500px" style="margin: -50px;">
+    <h1 class="neon-text" style="margin: 1px;">Introduce el código</h1>
+    <div class="neon-box">
+      <div class="d-flex justify-content-center gap-2 mb-2">
+        <input type="text" maxlength="1" class="form-control neon-input text-center" id="digit1">
+        <input type="text" maxlength="1" class="form-control neon-input text-center" id="digit2">
+        <input type="text" maxlength="1" class="form-control neon-input text-center" id="digit3">
+        <input type="text" maxlength="1" class="form-control neon-input text-center" id="digit4">
+        <input type="text" maxlength="1" class="form-control neon-input text-center" id="digit5">
+      </div>
+      <button id="submitBtn" class="btn neon-btn">Abrir candado</button>
+    </div>
+    <img src="imagenes/game.png" alt="Game" class="img-fluid neon-image" width="400px" style="margin: -50x;">
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.getElementById('submitBtn').addEventListener('click', function () {
+      const codigo = "1a2b3";
+      const digitos = [
+        document.getElementById('digit1').value.toLowerCase(),
+        document.getElementById('digit2').value.toLowerCase(),
+        document.getElementById('digit3').value.toLowerCase(),
+        document.getElementById('digit4').value.toLowerCase(),
+        document.getElementById('digit5').value.toLowerCase()
+      ];
+      const codigoUsuario = digitos.join('');
+
+      if (codigoUsuario === codigo) {
+        window.location.href = "lasaliano2.html";
+      } else {
+        let mensaje = "";
+        for (let i = 0; i < codigo.length; i++) {
+          if (digitos[i] === codigo[i]) {
+            mensaje += `<span style="color: limegreen;">${digitos[i]}: Correcto y en posición correcta</span><br>`;
+          } else if (codigo.includes(digitos[i])) {
+            mensaje += `<span style="color: yellow;">${digitos[i]}: Correcto pero en posición incorrecta</span><br>`;
+          } else {
+            mensaje += `<span style="color: red;">${digitos[i]}: Incorrecto</span><br>`;
+          }
+        }
+
+        Swal.fire({
+          title: 'Código incorrecto',
+          html: mensaje,
+          icon: 'error',
+          confirmButtonText: 'Intentar de nuevo',
+          confirmButtonColor: '#ff00ff',
+          background: '#1a1a1a',
+          customClass: {
+            title: 'neon-text',
+            confirmButton: 'neon-btn',
+          },
+        });
+      }
+    });
+  </script>
+</body>
+</html>
