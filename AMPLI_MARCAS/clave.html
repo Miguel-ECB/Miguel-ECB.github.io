@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardar en LocalStorage</title>
+</head>
+<body>
+  <h1>Guardar Datos en LocalStorage</h1>
+
+  <label for="clave">Clave:</label>
+  <input type="text" id="clave" placeholder="Escribe una clave"><br><br>
+
+  <label for="valor">Valor:</label>
+  <input type="text" id="valor" placeholder="Escribe un valor"><br><br>
+
+  <button id="guardarBtn">Guardar en LocalStorage</button>
+
+  <button id="mostrarBtn">Mostrar Datos Guardados</button>
+
+  <h2>Datos Guardados:</h2>
+  <pre id="datosGuardados"></pre>
+
+  <script>
+    const claveInput = document.getElementById("clave");
+    const valorInput = document.getElementById("valor");
+    const guardarBtn = document.getElementById("guardarBtn");
+    const mostrarBtn = document.getElementById("mostrarBtn");
+    const datosGuardados = document.getElementById("datosGuardados");
+
+    guardarBtn.addEventListener("click", function () {
+      const clave = claveInput.value.trim();
+      const valor = valorInput.value.trim();
+
+      if (clave === "" || valor === "") {
+        alert("Por favor, completa ambos campos.");
+        return;
+      }
+
+      localStorage.setItem(clave, valor);
+
+      claveInput.value = "";
+      valorInput.value = "";
+
+      alert(`Datos guardados: Clave="${clave}", Valor="${valor}"`);
+    });
+
+    mostrarBtn.addEventListener("click", function () {
+      datosGuardados.textContent = "";
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const clave = localStorage.key(i);
+        const valor = localStorage.getItem(clave);
+
+        datosGuardados.textContent += `${clave}: ${valor}\n`;
+      }
+    });
+  </script>
+</body>
+</html>
