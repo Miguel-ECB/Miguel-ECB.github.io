@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Cromo Futurista</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --color-bordes: #1900ff;
+  --color-texto: #00e0ff;
+  --color-nombre-real: #0022ff; 
+}
+
+body {
+  background: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.cromo {
+  width: 400px;
+  height: 560px;
+  position: relative;
+  border: 3px solid var(--color-bordes);
+  background: var(--color-fondo);
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+}
+
+.fondo-imagen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+  z-index: 1;
+}
+
+.nombre-container {
+  position: absolute;
+  top: 20px;
+  left: 235px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.nombre-bg {
+  width: 300px;
+  height: 50px;
+  background: rgba(0,0,0,0.8);
+  clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 0% 100%);
+}
+
+.nombre-texto {
+  position: absolute;
+  top: 0;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8em;
+  color: var(--color-texto);
+  text-shadow: 0 0 10px var(--color-bordes);
+}
+
+.estrellas-container {
+  position: absolute;
+  top: 120px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  z-index: 6;
+}
+
+.estrella {
+  width: 38px;
+  height: 35px;
+  background: url('imagenes/estrella.png') no-repeat center/contain;
+  opacity: 0.4;
+}
+
+.estrella.activa {
+  opacity: 1;
+  filter: drop-shadow(0 0 5.5px var(--color-texto));
+}
+
+.imagen-principal {
+  position: absolute;
+  top: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 260px;
+  border: 3px solid var(--color-bordes);
+  clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+  overflow: hidden;
+  z-index: 3;
+}
+
+.imagen-principal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.atributo-num-container {
+  position: absolute;
+  top: 310px;
+  left: 150px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  z-index: 6;
+}
+.atributo {
+  padding: 8px 10px;
+  background: rgba(0,0,0,0.45);
+  border: 2px solid var(--color-texto);
+  border-radius: 0px;
+  font-family: 'Orbitron', sans-serif;
+  color: var(--color-texto);
+  text-align: center;
+  font-size: 1em;
+}
+.numero-iluminado {
+  margin-left: 10px;
+  padding: 6px 14px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #fffbe0;
+  background: rgba(255, 255, 0, 0.12);
+  border: 2px solid #ffe066;
+  border-radius: 7px;
+  box-shadow: 0 0 12px 2px #ffe066, 0 0 2px #fffbe0;
+  text-shadow: 0 0 8px #ffe066, 0 0 2px #fffbe0;
+}
+
+.descripcion {
+  position: absolute;
+  bottom: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  padding: 15px;
+  background: rgba(0,0,0,0.8);
+  border-left: 3px solid var(--color-texto);
+  color: #ffffff;
+  line-height: 1.4;
+  z-index: 4;
+}
+
+.pie {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 8px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: rgba(0,0,0,1);
+  border-top: 2px solid var(--color-bordes);
+  z-index: 5;
+  flex-direction: column;
+  gap: 0;
+}
+
+.artista-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0.3em;
+}
+.artista {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--color-texto);
+  font-size: 1em;
+  font-weight: 700;
+}
+.artista-real {
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-nombre-real);
+  font-size: 0.87em;
+  margin-top: 2px;
+  margin-left: 2px;
+  font-weight: 500;
+}
+
+.referencia-power {
+  position: absolute;
+  top: 24.1px;
+  left: 20px;
+  z-index: 20;
+}
+.referencia-toughness {
+  position: absolute;
+  bottom: 17px;
+  right: 15px;
+  z-index: 20;
+}
+.referencia-power span{
+  padding: 2px 12px;
+  background: rgb(0, 0, 0, 0.8);
+  border: 1px solid var(--color-texto);
+  color: var(--color-texto);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2em;
+  font-weight: 700;
+  border-radius: 0px;
+}
+.referencia-toughness span {
+  padding: 2px 12px;
+  background: rgb(0, 0, 0, 0.8);
+  border: 1px solid var(--color-texto);
+  color: var(--color-texto);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  border-radius: 0px;
+}
+</style>
+</head>
+<body>
+  <div class="cromo">
+    <img class="fondo-imagen" src="imagenes/rojo.jpg" alt="Fondo">
+
+    <div class="nombre-container">
+      <div class="nombre-bg"></div>
+      <div class="nombre-texto">VENECOMAN</div>
+    </div>
+
+    <div class="estrellas-container">
+      <div class="estrella activa"></div>
+      <div class="estrella activa"></div>
+      <div class="estrella activa"></div>
+      <div class="estrella activa"></div>
+      <div class="estrella"></div>
+      <div class="estrella"></div>
+    </div>
+
+    <div class="imagen-principal">
+      <img src="imagenes/VENECOMAN.jpeg" alt="Personaje">
+    </div>
+
+    <div class="atributo-num-container">
+      <div class="atributo">SUPER RAYO LASER</div>
+      <div class="numero-iluminado">99</div>
+    </div>
+
+    <div class="descripcion">
+      El mejor arepero de todos los tiempos. Dominador de las artes culinarias venezolanas.
+    </div>
+
+    <div class="pie">
+      <div class="artista-block">
+        <div class="artista">MIKE</div>
+        <div class="artista-real">Miguel Enrique</div>
+      </div>
+    </div>
+
+    <div class="referencia-power"><span>1</span></div>
+    <div class="referencia-toughness"><span>/18</span></div>
+  </div>
+</body>
+</html>
