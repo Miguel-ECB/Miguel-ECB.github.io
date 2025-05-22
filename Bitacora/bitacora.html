@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bitácora - TEAM 1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #141625;
+      --panel: #1c1f36;
+      --miguel: #00fff7;
+      --alberto: #ff00c8;
+      --jorge: #39ff14;
+      --accent: #f8ff00;
+      --accent2: #ff00c8;
+      --shadow: 0 0 24px 0 rgba(0, 0, 0, 0.7);
+      --borde-grueso: 3px;
+      --iluminacion: 8px;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #141625 0%, #1c1f36 100%);
+      color: #fff;
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    header {
+      background: #0a0c17;
+      text-align: center;
+      padding: 2rem 0 1rem 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent), 0 0 40px var(--accent);
+      animation: flicker 2s infinite alternate;
+      border-bottom: 4px solid var(--miguel);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
+    }
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 10px var(--accent), 0 0 40px var(--accent), 0 0 80px var(--miguel);
+      }
+      20%, 22%, 55% {
+        text-shadow: none;
+      }
+    }
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 5;
+    }
+    .dia {
+      border-radius: 0 !important;
+      border: var(--borde-grueso) solid var(--accent);
+      box-shadow: 0 0 32px var(--accent2),
+                  inset 0 0 16px var(--accent);
+      position: relative;
+      margin: 2rem 0;
+      padding: 2.5rem 1.5rem;
+      background: var(--panel);
+      overflow: visible;
+      z-index: 1;
+    }
+    .dia::after {
+      content: '';
+      position: absolute;
+      top: calc(-1 * var(--borde-grueso));
+      left: calc(-1 * var(--borde-grueso));
+      right: calc(-1 * var(--borde-grueso));
+      bottom: calc(-1 * var(--borde-grueso));
+      background: linear-gradient(
+        45deg,
+        var(--accent) 0%,
+        var(--accent2) 50%,
+        var(--jorge) 100%
+      );
+      z-index: -1;
+      animation: borde-neon 4s linear infinite;
+      filter: blur(var(--iluminacion));
+      border-radius: 0 !important;
+    }
+    @keyframes borde-neon {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
+    .dia h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px var(--miguel), 0 0 24px var(--alberto);
+      animation: glowTitle 2s infinite alternate;
+      user-select: none;
+    }
+    @keyframes glowTitle {
+      from { text-shadow: 0 0 12px var(--miguel), 0 0 24px var(--alberto); }
+      to { text-shadow: 0 0 24px var(--alberto), 0 0 40px var(--jorge); }
+    }
+    .partes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+    .parte {
+      border-radius: 0;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 24px var(--accent2),
+                  inset 0 0 12px var(--accent);
+      position: relative;
+      overflow: visible;
+      background: #181a27;
+      flex: 1 1 320px;
+      min-width: 260px;
+      padding: 1rem 1.2rem;
+      animation: partePop 0.7s;
+    }
+    @keyframes partePop {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .hora {
+      border-radius: 0;
+      border: 2px solid var(--miguel);
+      box-shadow: 0 0 16px var(--miguel),
+                  inset 0 0 8px var(--miguel);
+      background: #181a27;
+      flex: 1 1 200px;
+      min-width: 180px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.7rem;
+      position: relative;
+      animation: fadein 0.8s;
+    }
+    .hora h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+      color: var(--accent2);
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 8px var(--jorge);
+      letter-spacing: 1px;
+      user-select: none;
+    }
+    .integrantes {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .integrante {
+      border-radius: 0;
+      flex: 1 1 80px;
+      min-width: 90px;
+      background: #181a27;
+      border: 2px solid;
+      text-align: center;
+      padding: 0.5rem 0.7rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.97rem;
+      font-family: 'Share Tech Mono', monospace;
+      box-shadow: 0 0 8px 2px #fff2;
+      position: relative;
+      transition: border-color 0.3s;
+      animation: integranteGlow 2s infinite alternate;
+      user-select: none;
+    }
+    .integrante.miguel {
+      border-color: var(--miguel);
+      color: var(--miguel);
+      text-shadow: 0 0 8px var(--miguel), 0 0 16px #fff;
+    }
+    .integrante.alberto {
+      border-color: var(--alberto);
+      color: var(--alberto);
+      text-shadow: 0 0 8px var(--alberto), 0 0 16px #fff;
+    }
+    .integrante.jorge {
+      border-color: var(--jorge);
+      color: var(--jorge);
+      text-shadow: 0 0 8px var(--jorge), 0 0 16px #fff;
+    }
+    @keyframes integranteGlow {
+      0% { box-shadow: 0 0 8px 2px #fff2; }
+      50% { box-shadow: 0 0 16px 4px #fff4; }
+      100% { box-shadow: 0 0 8px 2px #fff2; }
+    }
+    .general {
+      border-radius: 0;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 48px var(--accent2),
+                  inset 0 0 24px var(--accent);
+      background: var(--panel);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      animation: neonPulse 3s infinite alternate;
+    }
+    @keyframes neonPulse {
+      0% { box-shadow: 0 0 24px 0 var(--accent2), 0 0 8px 0 var(--jorge); }
+      100% { box-shadow: 0 0 48px 0 var(--accent2), 0 0 16px 0 var(--jorge); }
+    }
+    .general h3 {
+      color: var(--accent);
+      font-family: 'Orbitron', sans-serif;
+      margin-top: 0;
+      font-size: 1.4rem;
+      text-shadow: 0 0 12px var(--accent);
+      border-bottom: 2px solid var(--miguel);
+      padding-bottom: 0.5rem;
+      user-select: none;
+    }
+    .general-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .actividades, .problemas {
+      padding: 1rem;
+      border-radius: 0;
+    }
+    .actividades {
+      border: 2px solid var(--miguel);
+      box-shadow: 0 0 32px var(--miguel),
+                  inset 0 0 16px var(--miguel);
+    }
+    .problemas {
+      border: 2px solid var(--alberto);
+      box-shadow: 0 0 32px var(--alberto),
+                  inset 0 0 16px var(--alberto);
+    }
+    .general ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    .general li {
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+    .general li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--jorge);
+      text-shadow: 0 0 8px var(--jorge);
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .imagenes-animadas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: visible;
+    }
+    .imagenes-animadas img {
+      position: absolute;
+      border: 3px solid transparent;
+      border-radius: 4px;
+      box-shadow:
+        0 0 15px 4px rgba(255,255,255,0.2),
+        0 0 30px 8px currentColor;
+      filter: drop-shadow(0 0 10px currentColor);
+      user-select: none;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      will-change: transform;
+    }
+    .foto1 { width: 150px; top: 10vh; left: 5vw; color: var(--miguel); animation-name: oscilarX; animation-duration: 6s; }
+    .foto2 { width: 120px; top: 40vh; right: 10vw; color: var(--alberto); animation-name: oscilarY; animation-duration: 5s; }
+    .foto3 { width: 100px; top: 70vh; left: 20vw; color: var(--jorge); animation-name: rotarZoom; animation-duration: 8s; animation-timing-function: linear; }
+    .foto4 { width: 130px; top: 20vh; right: 35vw; color: var(--accent2); animation-name: diagonalMove; animation-duration: 7s; }
+    .foto5 { width: 140px; top: 80vh; right: 50vw; color: var(--accent); animation-name: pulseMove; animation-duration: 6.5s; }
+    @keyframes oscilarX { 0% { transform: translateX(0); } 100% { transform: translateX(40px); } }
+    @keyframes oscilarY { 0% { transform: translateY(0); } 100% { transform: translateY(30px); } }
+    @keyframes rotarZoom { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } 100% { transform: rotate(0deg) scale(1); } }
+    @keyframes diagonalMove { 0% { transform: translate(0, 0); } 100% { transform: translate(30px, 30px); } }
+    @keyframes pulseMove { 0% { transform: scale(1) translateX(0); } 50% { transform: scale(1.05) translateX(15px); } 100% { transform: scale(1) translateX(0); } }
+    @media (max-width: 900px) {
+      main { padding: 0.5rem; }
+      .partes, .hora, .integrantes { flex-direction: column !important; }
+      .dia { margin: 1rem 0; }
+      .imagenes-animadas img { width: 80px !important; }
+      .general-content { display: block; }
+    }
+    @media (max-width: 600px) {
+      header { font-size: 1.3rem; padding: 1rem 0 0.5rem 0; }
+      .dia { padding: 1rem 0.3rem; }
+      .parte { padding: 0.5rem 0.5rem; }
+      .general { padding: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Bitácora - TEAM 1 <span style="font-size:1.2rem; color:#ff00c8;"> <br>21-23 Mayo 2025</span>
+  </header>
+  <div class="imagenes-animadas" aria-hidden="true" aria-label="Imágenes decorativas animadas">
+    <img src="imagenes/foto1.png" alt="" class="foto1" />
+    <img src="imagenes/foto2.png" alt="" class="foto2" />
+    <img src="imagenes/foto3.png" alt="" class="foto3" />
+    <img src="imagenes/foto4.png" alt="" class="foto4" />
+    <img src="imagenes/foto5.png" alt="" class="foto5" />
+  </div>
+  <main>
+    <!-- Día 1 -->
+    <section class="dia">
+      <h2>Miércoles 21/05/2025</h2>
+      <div class="general">
+        <h3>⚡ Resumen General del Día</h3>
+        <div class="general-content">
+          <div class="actividades">
+            <h4>✅ Logros Principales</h4>
+            <ul>
+              <li>Creación de las máquinas virtuales y servidor e instalación de software correspondiente.</li>
+              <li>Creación, diseño y programación de la bitácora.</li>
+              <li>Instalación de SQLITE3.</li>
+              <li>Instalación de primeros juegos de prueba.</li>
+            </ul>
+          </div>
+          <div class="problemas">
+            <h4>⚠️ Problemas Encontrados</h4>
+            <ul>
+              <li>Imperfecciones en la creación de las máquinas virtuales.</li>
+              <li>Conflictos el software de las máquinas.</li>
+              <li>Mala distribución del contenido y código de la bitácora.</li>
+              <li>Fallos en la instalación de los juegos.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="partes">
+        <div class="parte">
+          <h3>Primera Parte (Antes del descanso)</h3>
+          <div class="hora">
+            <h4>Hora 1</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Instalación y creación de la máquina del servidor.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Instalación y creación de la máquina Cliente1.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Instalación y creación de la máquina Cliente2.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 2</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Instalación de SQLITE3 en máquina.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Configuración de software en máquinas virtuales.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Diseño de bitácora.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 3</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Instalación de juegos.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Investigación y búsqueda de juegos.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Búsqueda de recursos mínimos necesarios para los juegos.</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="parte">
+          <h3>Segunda Parte (Después del descanso)</h3>
+          <div class="hora">
+            <h4>Hora 4</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Prueba de juegos.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Búsqueda de código base de juegos.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Búsqueda de recursos mínimos necesarios para los juegos.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 5</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Instalación de juegos.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Investigación y búsqueda de juegos.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Búsqueda de recursos mínimos necesarios para los juegos.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 6</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Guardado en repositorio</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Resumen del día</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Backup de archivos</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Día 2 -->
+    <section class="dia">
+      <h2>Jueves 22/05/2025</h2>
+      <div class="general">
+        <h3>⚡ Resumen General del Día</h3>
+        <div class="general-content">
+          <div class="actividades">
+            <h4>✅ Logros Principales</h4>
+            <ul>
+              <li>Culminación del diseño de la bitácora.</li>
+              <li>Configuración de red en máquinas virtuales.</li>
+              <li>Instalación de juego definitivo y configuración de hardware de máquina.</li>
+              <li>¡LOGRAMOS JUGAR TODOS!</li>
+            </ul>
+          </div>
+          <div class="problemas">
+            <h4>⚠️ Problemas Encontrados</h4>
+            <ul>
+              <li>Fallos en acceder al juego y requisitos del mismo.</li>
+              <li>Conflictos de red y permisos.</li>
+              <li>Problemas de compatibilidad de hardware.</li>
+              <li>Errores en la configuración de la red local.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="partes">
+        <div class="parte">
+          <h3>Primera Parte (Antes del descanso)</h3>
+          <div class="hora">
+            <h4>Hora 1</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Configuración de red en servidor.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Configuración de red en Cliente1.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Configuración de red en Cliente2.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 2</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Instalación de juego definitivo.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Configuración de hardware.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Pruebas de compatibilidad.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 3</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Pruebas de juego en red.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Soporte y solución de errores.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Documentación de la configuración.</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="parte">
+          <h3>Segunda Parte (Después del descanso)</h3>
+          <div class="hora">
+            <h4>Hora 4</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Prueba final de red.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Soporte a clientes.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Revisión de hardware.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 5</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Revisión de bitácora.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Mejoras visuales.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Corrección de errores de redacción.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 6</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Backup de la configuración.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Guardado en repositorio.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Documentación final del día.</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Día 3 -->
+    <section class="dia">
+      <h2>Viernes 23/05/2025</h2>
+      <div class="general">
+        <h3>⚡ Resumen General del Día</h3>
+        <div class="general-content">
+          <div class="actividades">
+            <h4>✅ Logros Principales</h4>
+            <ul>
+              <li>Presentación final exitosa.</li>
+              <li>Publicación del sitio en producción.</li>
+              <li>Documentación completa del proyecto.</li>
+            </ul>
+          </div>
+          <div class="problemas">
+            <h4>⚠️ Problemas Encontrados</h4>
+            <ul>
+              <li>Problemas de último minuto con el hosting.</li>
+              <li>Errores de caché en la implementación.</li>
+              <li>Problemas de formato en móviles.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="partes">
+        <div class="parte">
+          <h3>Primera Parte (Antes del descanso)</h3>
+          <div class="hora">
+            <h4>Hora 1</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Revisión general.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Pruebas dispositivos.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Ajustes diseño.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 2</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Animaciones finales.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Optimización recursos.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Preparación presentación.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 3</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Ensayo presentación.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Feedback final.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Backup final.</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="parte">
+          <h3>Segunda Parte (Después del descanso)</h3>
+          <div class="hora">
+            <h4>Hora 4</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Presentación bitácora.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Recopilación feedback.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Publicación web.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 5</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Reflexión aprendizaje.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Documentación final.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Control de versiones.</small></div>
+            </div>
+          </div>
+          <div class="hora">
+            <h4>Hora 6</h4>
+            <div class="integrantes">
+              <div class="integrante miguel"><u>Miguel Enrique</u><br /><small>Cierre y despedida.</small></div>
+              <div class="integrante alberto"><u>Alberto Esteban</u><br /><small>Último backup.</small></div>
+              <div class="integrante jorge"><u>Jorge La Osa</u><br /><small>Revisión final.</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="imagenes-animadas" aria-hidden="true" aria-label="Imágenes decorativas animadas">
+    <img src="imagenes/foto1.png" alt="" class="foto1" />
+    <img src="imagenes/foto2.png" alt="" class="foto2" />
+    <img src="imagenes/foto3.png" alt="" class="foto3" />
+    <img src="imagenes/foto4.png" alt="" class="foto4" />
+    <img src="imagenes/foto5.png" alt="" class="foto5" />
+  </div>
+</body>
+</html>
