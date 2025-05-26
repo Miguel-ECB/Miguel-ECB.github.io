@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>ESCONDITE INGLÉS</title>
+  <link rel="icon" href="imagenes/favicon.png" type="icon">
+  <style>
+    body {
+      background: url(imagenes/cesped.png);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .campo {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 30px;
+      padding: 30px 0 0 0;
+      min-height: 600px;
+      position: relative;
+    }
+    .carril {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      position: relative;
+      min-width: 80px;
+    }
+    .columna-extra .casilla-extra {
+      width: 70px;
+      height: 55px;
+      left: -80px;
+      border: 2px solid #000000;
+      margin: 1px 0;
+      position: relative;
+      background: #1aff00;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .casilla-jugador {
+      width: 70px;
+      height: 55px;
+      left: -80px;
+      border: 2px solid #22222200;
+      margin: 1px 0;
+      position: relative;
+      background: rgba(255, 255, 255, 0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .meta {
+      background: #e0ffe000;
+      left: -80px;
+      border: 3px solid #0b7c0b00;
+      padding: 0;
+    }
+    .meta img {
+      width: 95px;
+      height: 45px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .personaje-img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      position: absolute;
+      left: 15px;
+      top: 7px;
+      z-index: 2;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #bbb;
+      box-shadow: 0 2px 6px #0002;
+    }
+    .corazon-img {
+      width: 22px;
+      height: 22px;
+      position: absolute;
+      left: 45px;
+      top: 3px;
+      z-index: 3;
+      filter: drop-shadow(1px 2px 2px #c00b);
+    }
+    .ganador {
+      font-size: 21px;
+      font-weight: bold;
+      color: #1b7e1b;
+      position: absolute;
+      left: 10px;
+      top: -8px;
+      background: #fff;
+      border-radius: 6px;
+      padding: 2px 8px;
+      border: 2px solid #000000;
+      z-index: 5;
+      box-shadow: 0 2px 8px #0002;
+    }
+    .panel-control {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 18px;
+      margin-top: 10px;
+    }
+    .jugador-control {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      min-width: 80px;
+    }
+    .nombre-jugador {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 2px;
+      color: #222;
+      background: #e5ffe5;
+      padding: 2px 7px;
+      border-radius: 0px;
+      border: 2px solid #b6b3e6;
+    }
+    .boton {
+      width: 36px;
+      height: 36px;
+      font-size: 19px;
+      margin: 0 2px;
+      border: 2px solid #222;
+      border-radius: 7px;
+      cursor: pointer;
+      background: #f5f5f5;
+      font-family: monospace;
+      font-weight: bold;
+      transition: background 0s;
+      margin-bottom: 2px;
+    }
+    .boton:disabled {
+      background: #ddd;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+    .estado {
+      font-size: 15px;
+      color: #00d5ff;
+      width: 70px;
+      text-align: center;
+      min-height: 18px;
+    }
+    .panel-dados {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      background: #00ff0058;
+      padding: 7px 0;
+      border-radius: 0px;
+      border: 1px solid #00ff00;
+      width: 390px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .dado {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      border-radius: 0px;
+      margin: 0 2px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      font-size: 16px;
+    }
+    .negro { background: #222; }
+    .rojo { background: #d22; }
+    .panel-turno {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .mensaje {
+      margin-top: 10px;
+      font-size: 17px;
+      min-height: 22px;
+      color: rgb(0, 247, 255);
+      font-family: monospace;
+    }
+    .panel-bolsa {
+      font-size: 20px;
+      margin-top: 6px;
+    }
+    .sacar-boton {
+      margin-left: 10px;
+      font-size: 15px;
+      padding: 3px 10px;
+      border-radius: 0px;
+      border: 2px solid #222;
+      background: #e0e0ff;
+      cursor: pointer;
+    }
+    .sacar-boton:disabled {
+      background: #ddd;
+      color: #aaa;
+      cursor: not-allowed;
+    }
+    .apartado-dados-jugador {
+      margin-top: 5px;
+      min-height: 28px;
+      font-size: 15px;
+      color: #1b1b6b;
+      font-family: monospace;
+      background: #00d9ff;
+      border-radius: 4px;
+      padding: 1px 5px;
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      align-items: center;
+    }
+    .apartado-dados-jugador .dado-jugador {
+      background: #dbefff;
+      border: 1px solid #b3e6b3;
+      border-radius: 4px;
+      padding: 2px 7px;
+      margin: 0 2px;
+      font-weight: bold;
+      color: #1b1b6b;
+      display: inline-block;
+      min-width: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>ESCONDITE INGLÉS</h1>
+  <div class="campo" id="campo"></div>
+
+  <div class="panel-control" id="panel-control"></div>
+  <div class="panel-dados">
+    <div>
+      <b>Dados sacados:</b>
+      <span id="dados-negros"></span>
+      <span id="dado-rojo"></span>
+    </div>
+    <div class="panel-bolsa">
+      <span>Dados en la bolsa: <span id="bolsa-restantes">4</span></span>
+      <button class="sacar-boton" id="sacar-dado" disabled>Sacar dado</button>
+    </div>
+  </div>
+  <div class="panel-turno">Turno: <span id="turno-num">1</span></div>
+  <div class="mensaje" id="mensaje"></div>
+
+  <script>
+    const dados = {
+      negro1: [1, 1, 1, 1, 2, 2], 
+      negro2: [1, 1, 1, 1, 0, 0], 
+      negro3: [1, 1, 0, 0, 0, 0], 
+      rojo:   [1, 1, 1, 1, 1, 0] 
+    };
+    const nombresDados = {
+      negro1: "N1",
+      negro2: "N2",
+      negro3: "N3",
+      rojo: "R"
+    };
+    const jugadoresInfo = [
+      {nombre: "Lionel Messi", img: "imagenes/messi.png"},
+      {nombre: "Neymar Jr", img: "imagenes/neymar.png"},
+      {nombre: "Cristiano Ronaldo", img: "imagenes/ronaldo.png"}
+    ];
+    const CASILLAS = 10;
+    const JUGADORES = 3;
+
+    let estado = {
+      jugadores: [
+        {pos: 0, corazon: false, accion: null, dados: []},
+        {pos: 0, corazon: false, accion: null, dados: []},
+        {pos: 0, corazon: false, accion: null, dados: []}
+      ],
+      turno: 1,
+      bolsa: ["negro1", "negro2", "negro3", "rojo"],
+      dadosNegros: [],
+      dadoRojo: null,
+      fase: "eligiendo", 
+      ganador: null
+    };
+
+    crearTablero();
+    crearPanelJugadores();
+    actualizarTodo();
+
+    function crearTablero() {
+      const campo = document.getElementById("campo");
+      campo.innerHTML = "";
+
+      const columnaExtra = document.createElement("div");
+      columnaExtra.className = "carril columna-extra";
+      for(let i=0; i<CASILLAS; i++){
+        const casilla = document.createElement("div");
+        casilla.className = "casilla-extra";
+        casilla.id = `casilla-extra-${i}`;
+        columnaExtra.appendChild(casilla);
+      }
+      campo.appendChild(columnaExtra);
+
+      for(let j=0; j<JUGADORES; j++){
+        const carril = document.createElement("div");
+        carril.className = "carril";
+        carril.id = "carril-"+j;
+        for(let i=0; i<CASILLAS; i++){
+          const casilla = document.createElement("div");
+          casilla.className = "casilla-jugador";
+          casilla.id = `casilla-${j}-${i}`;
+          if(i===CASILLAS-1){
+            casilla.classList.add("meta");
+            const img = document.createElement("img");
+            img.src = "imagenes/porteria.png";
+            img.alt = "Meta";
+            casilla.appendChild(img);
+          }
+          carril.appendChild(casilla);
+        }
+        campo.appendChild(carril);
+      }
+    }
+
+    function crearPanelJugadores() {
+      const panel = document.getElementById("panel-control");
+      panel.innerHTML = "";
+      for(let i=0; i<JUGADORES; i++){
+        const div = document.createElement("div");
+        div.className = "jugador-control";
+        div.innerHTML = `
+          <span class="nombre-jugador">${jugadoresInfo[i].nombre}</span>
+          <div>
+            <button class="boton" id="andar${i}">A</button>
+            <button class="boton" id="parar${i}">P</button>
+          </div>
+          <span class="estado" id="estado${i}">-</span>
+          <div class="apartado-dados-jugador" id="dados-jugador-${i}"></div>
+        `;
+        panel.appendChild(div);
+        document.getElementById("andar"+i).onclick = ()=>elegirAccion(i, "andar");
+        document.getElementById("parar"+i).onclick = ()=>elegirAccion(i, "parar");
+      }
+    }
+
+    function elegirAccion(j, accion){
+      if(estado.fase!=="eligiendo" || estado.jugadores[j].accion) return;
+      estado.jugadores[j].accion = accion;
+      actualizarPanelJugadores();
+      if(estado.jugadores.every(jg=>jg.accion)){
+        estado.fase = "sacando";
+        document.getElementById("sacar-dado").disabled = false;
+        mostrarMensaje("¡Todos eligieron! Saca un dado de la bolsa.");
+      }
+    }
+
+    document.getElementById("sacar-dado").onclick = function(){
+      if(estado.fase!=="sacando") return;
+      if(estado.bolsa.length===0) reponerBolsa();
+      const idx = Math.floor(Math.random()*estado.bolsa.length);
+      const dadoSacado = estado.bolsa.splice(idx,1)[0];
+      document.getElementById("bolsa-restantes").textContent = estado.bolsa.length;
+      if(dadoSacado.startsWith("negro")){
+        estado.dadosNegros.push(dadoSacado);
+      } else {
+        estado.dadoRojo = dadoSacado;
+      }
+      actualizarPanelDados();
+      procesarAcciones(dadoSacado);
+    };
+
+    function tirarDadosJugador(dadosAcum, incluyeRojo){
+      let resultados = [];
+      for(let d of dadosAcum){
+        resultados.push({tipo: d, valor: tirarDado(d)});
+      }
+      if(incluyeRojo && estado.dadoRojo){
+        resultados.push({tipo: "rojo", valor: tirarDado("rojo")});
+      }
+      return resultados;
+    }
+
+    function procesarAcciones(dadoSacado){
+      let mensajes = [];
+      for(let idx=0; idx<JUGADORES; idx++){
+        let jugador = estado.jugadores[idx];
+        let nombre = jugadoresInfo[idx].nombre;
+        jugador.dados = []; 
+        if(jugador.accion==="parar"){
+          if(dadoSacado.startsWith("negro")){
+          } else if(dadoSacado==="rojo"){
+            if(!jugador.corazon){
+              jugador.corazon = true;
+              mensajes.push(`${nombre} recibe una vida ❤️`);
+            }
+          }
+        }
+        else if(jugador.accion==="andar"){
+          if(dadoSacado.startsWith("negro")){
+          
+            let resultados = tirarDadosJugador(estado.dadosNegros, false);
+            jugador.dados = resultados.map(r=>r.valor); 
+            let suma = resultados.reduce((a,b)=>a+b.valor,0);
+            jugador.pos = Math.min(CASILLAS-1, jugador.pos + suma);
+            mensajes.push(`${nombre} avanza ${suma} casilla${suma===1?"":"s"} [${resultados.map(r=>r.valor).join(", ")}]`);
+          } else if(dadoSacado==="rojo"){
+            if(jugador.corazon){
+              jugador.corazon = false;
+              mensajes.push(`${nombre} pierdes una vida ❤️`);
+            } else {
+              
+              let resultados = tirarDadosJugador(estado.dadosNegros, true);
+              jugador.dados = resultados.map(r=>r.valor); 
+              let total = resultados.reduce((a,b)=>a+b.valor,0);
+              let nuevaPos = Math.max(0, jugador.pos - total);
+              let mov = jugador.pos - nuevaPos;
+              jugador.pos = nuevaPos;
+              mensajes.push(`${nombre} retrocede ${mov} casilla${mov===1?"":"s"} [${resultados.map(r=>r.valor).join(", ")}]`);
+            }
+          }
+        }
+      }
+      actualizarTodo();
+      setTimeout(()=>{
+        mostrarMensaje(mensajes.join(" | "));
+        verificarGanador();
+        if(!estado.ganador){
+          if(estado.dadoRojo || estado.dadosNegros.length===3){
+            setTimeout(()=>{
+              reponerBolsa();
+              siguienteTurno();
+            }, 1300);
+          } else {
+            setTimeout(siguienteTurno, 1300);
+          }
+        }
+      }, 800);
+    }
+
+    function tirarDado(tipo){
+      const caras = dados[tipo];
+      const idx = Math.floor(Math.random()*6);
+      return caras[idx];
+    }
+
+    function verificarGanador(){
+      let ganadores = [];
+      estado.jugadores.forEach((j,idx)=>{
+        if(j.pos>=CASILLAS-1){
+          ganadores.push(idx);
+        }
+      });
+      if(ganadores.length>0){
+        estado.ganador = ganadores;
+        mostrarMensaje("¡"+ganadores.map(i=>jugadoresInfo[i].nombre).join(" y ")+" GANE!!");
+        estado.fase = "fin";
+        document.querySelectorAll(".boton").forEach(b=>b.disabled=true);
+        document.getElementById("sacar-dado").disabled = true;
+        actualizarTodo();
+      }
+    }
+
+    function siguienteTurno(){
+      estado.turno++;
+      estado.jugadores.forEach(j=>{
+        j.accion = null;
+        j.dados = [];
+      });
+      estado.fase = "eligiendo";
+      actualizarTodo();
+      mostrarMensaje("Elige A (Andar) o P (Parar).");
+    }
+
+    function reponerBolsa(){
+      estado.bolsa = ["negro1", "negro2", "negro3", "rojo"];
+      estado.dadosNegros = [];
+      estado.dadoRojo = null;
+      actualizarPanelDados();
+      document.getElementById("bolsa-restantes").textContent = 4;
+      mostrarMensaje("Se reponen todos los dados en la bolsa.");
+    }
+
+    function actualizarTodo(){
+      actualizarTablero();
+      actualizarPanelJugadores();
+      actualizarPanelDados();
+      document.getElementById("turno-num").textContent = estado.turno;
+      document.getElementById("sacar-dado").disabled = !(estado.fase==="sacando");
+    }
+
+    function actualizarTablero(){
+      for(let j=0; j<JUGADORES; j++){
+        for(let i=0; i<CASILLAS; i++){
+          const casilla = document.getElementById(`casilla-${j}-${i}`);
+          casilla.innerHTML = "";
+          if(i===CASILLAS-1){
+            const img = document.createElement("img");
+            img.src = "imagenes/porteria.png";
+            img.alt = "Meta";
+            casilla.appendChild(img);
+          }
+        }
+      }
+      estado.jugadores.forEach((j,idx)=>{
+        const casilla = document.getElementById(`casilla-${idx}-${j.pos}`);
+        const img = document.createElement("img");
+        img.className = "personaje-img";
+        img.src = jugadoresInfo[idx].img;
+        img.alt = jugadoresInfo[idx].nombre;
+        casilla.appendChild(img);
+        if(j.corazon){
+          const c = document.createElement("img");
+          c.className = "corazon-img";
+          c.src = "imagenes/corazon.png";
+          c.alt = "Corazón";
+          casilla.appendChild(c);
+        }
+        if(estado.ganador && estado.ganador.includes(idx) && j.pos>=CASILLAS-1){
+          const g = document.createElement("div");
+          g.className = "ganador";
+          g.textContent = "GANE!!";
+          casilla.appendChild(g);
+        }
+      });
+    }
+
+    function actualizarPanelJugadores(){
+      for(let i=0; i<JUGADORES; i++){
+        document.getElementById("andar"+i).disabled = !!estado.jugadores[i].accion || estado.fase!=="eligiendo";
+        document.getElementById("parar"+i).disabled = !!estado.jugadores[i].accion || estado.fase!=="eligiendo";
+        let est = "-";
+        if(estado.jugadores[i].accion==="andar") est = "Andando";
+        if(estado.jugadores[i].accion==="parar") est = "Parado";
+        document.getElementById("estado"+i).textContent = est;
+        const apartado = document.getElementById("dados-jugador-"+i);
+        apartado.innerHTML = "";
+        if(estado.jugadores[i].dados && estado.jugadores[i].dados.length > 0){
+          estado.jugadores[i].dados.forEach(valor=>{
+            const span = document.createElement("span");
+            span.className = "dado-jugador";
+            span.textContent = valor;
+            apartado.appendChild(span);
+          });
+        }
+      }
+    }
+
+    function actualizarPanelDados(){
+      const negros = document.getElementById("dados-negros");
+      negros.innerHTML = "";
+      estado.dadosNegros.forEach(tipo=>{
+        const d = document.createElement("span");
+        d.className = "dado negro";
+        d.textContent = nombresDados[tipo];
+        negros.appendChild(d);
+      });
+      const rojo = document.getElementById("dado-rojo");
+      rojo.innerHTML = "";
+      if(estado.dadoRojo){
+        const d = document.createElement("span");
+        d.className = "dado rojo";
+        d.textContent = "R";
+        rojo.appendChild(d);
+      }
+      document.getElementById("bolsa-restantes").textContent = estado.bolsa.length;
+    }
+
+    function mostrarMensaje(msg){
+      document.getElementById("mensaje").innerHTML = msg;
+    }
+  </script>
+</body>
+</html>
